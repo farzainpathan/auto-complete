@@ -22,12 +22,14 @@ public class SentenceController {
   @GetMapping("/complete/sentences/{sentence}")
   @ApiOperation(value = "This endpoint fetches all possible sentences")
   public PossibleSentences getAllSentences(@PathVariable String sentence) {
+    log.info("Ask service all possible sentences for : " + sentence);
     return requestSentence.allPossibleSentences(sentence);
   }
 
   @PostMapping("/insert/sentences")
   @ApiOperation(value = "This endpoint fetches all possible sentences")
   public Sentences insertSentences(@RequestBody Sentences sentences) {
+    log.info("Ask service to store sentences : " + sentences);
     return requestSentence.insertWord(sentences);
   }
 }

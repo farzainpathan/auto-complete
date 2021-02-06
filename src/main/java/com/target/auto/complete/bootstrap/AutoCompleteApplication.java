@@ -3,7 +3,6 @@ package com.target.auto.complete.bootstrap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// @SpringBootApplication
 @SpringBootApplication(scanBasePackages = "com.target.auto.complete.*")
 public class AutoCompleteApplication {
 

@@ -1,7 +1,7 @@
 package com.target.auto.complete.service;
 
-import com.target.auto.complete.domain.Sentences;
 import com.target.auto.complete.domain.PossibleSentences;
+import com.target.auto.complete.domain.Sentences;
 import com.target.auto.complete.service.trie.Trie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,11 +18,11 @@ public class GenerateSentence implements RequestSentence {
   }
 
   @Override
-  public PossibleSentences allPossibleSentences(String word) {
-    List<String> stringList = trie.autocomplete(word);
-    if (stringList.isEmpty()) trie.insert(word);
+  public PossibleSentences allPossibleSentences(String sentence) {
+    List<String> stringList = trie.autocomplete(sentence);
+    if (stringList.isEmpty()) trie.insert(sentence);
     log.info("All possible suggestion : " + stringList);
-    return PossibleSentences.builder().searchedString(word).sentencesList(stringList).build();
+    return PossibleSentences.builder().searchedString(sentence).sentencesList(stringList).build();
   }
 
   @Override

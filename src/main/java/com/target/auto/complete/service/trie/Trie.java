@@ -7,18 +7,18 @@ import java.util.List;
 
 @Component
 public class Trie {
-  private TrieNode root;
+  private final TrieNode root;
 
   public Trie() {
     root = new TrieNode(' ');
   }
 
-  public void insert(String word) {
-    if (search(word) == true) return;
+  public void insert(String sentence) {
+    if (search(sentence)) return;
 
     TrieNode current = root;
     TrieNode pre;
-    for (char ch : word.toCharArray()) {
+    for (char ch : sentence.toCharArray()) {
       pre = current;
       TrieNode child = current.getChild(ch);
       if (child != null) {
@@ -33,18 +33,15 @@ public class Trie {
     current.isEnd = true;
   }
 
-  public boolean search(String word) {
+  public boolean search(String sentence) {
     TrieNode current = root;
-    for (char ch : word.toCharArray()) {
+    for (char ch : sentence.toCharArray()) {
       if (current.getChild(ch) == null) return false;
       else {
         current = current.getChild(ch);
       }
     }
-    if (current.isEnd == true) {
-      return true;
-    }
-    return false;
+    return current.isEnd;
   }
 
   public List<String> autocomplete(String prefix) {

@@ -14,10 +14,10 @@ public class ApplicationRunner implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    seedData();
+    seedInitialDataIntoSystem();
   }
 
-  private void seedData() {
+  private void seedInitialDataIntoSystem() {
     trie.insert("amazon");
     trie.insert("amazon prime");
     trie.insert("amazing");

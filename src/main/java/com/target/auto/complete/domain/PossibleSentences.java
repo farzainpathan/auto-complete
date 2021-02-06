@@ -17,11 +17,11 @@ import java.util.List;
 @ApiModel(description = "List of all possible sentences")
 public class PossibleSentences {
 
-    @ApiModelProperty(notes = "Sentence searched")
-    @JsonProperty("stringSearched")
-    private String searchedString;
+  @ApiModelProperty(notes = "Sentence searched")
+  @JsonProperty("stringSearched")
+  private String searchedString;
 
-    @ApiModelProperty(notes = "All possible sentences")
-    @JsonProperty("possibleSentences")
-    private List<String> sentencesList;
+  @ApiModelProperty(notes = "All possible sentences")
+  @JsonProperty("possibleSentences")
+  private List<String> sentencesList;
 }

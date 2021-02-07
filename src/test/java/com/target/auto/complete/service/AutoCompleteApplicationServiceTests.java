@@ -2,7 +2,6 @@ package com.target.auto.complete.service;
 
 import com.target.auto.complete.domain.PossibleSentences;
 import com.target.auto.complete.domain.Sentences;
-import com.target.auto.complete.service.trie.Trie;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

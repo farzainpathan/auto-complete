@@ -4,6 +4,8 @@ import com.target.auto.complete.service.trie.Trie;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 public class ApplicationRunner implements CommandLineRunner {
   private final Trie trie;
@@ -18,17 +20,21 @@ public class ApplicationRunner implements CommandLineRunner {
   }
 
   private void seedInitialDataIntoSystem() {
-    trie.insert("amazon");
-    trie.insert("amazon prime");
-    trie.insert("amazing");
-    trie.insert("amazing spider man");
-    trie.insert("amazed");
-    trie.insert("alibaba");
-    trie.insert("ali express");
-    trie.insert("ebay");
-    trie.insert("walmart");
-    trie.insert("What is the weather today");
-    trie.insert("What is the temperature today");
-    trie.insert("What is the air pressure today");
+    var feedData =
+        Arrays.asList(
+            "baby yoda toy",
+            "baby yogurt",
+            "baby yoda chia pet",
+            "star wars baby yoda",
+            "what is ride by wire",
+            "how many states in india",
+            "where is the wall street exchange",
+            "where is the heart located",
+            "where is the black sheep",
+            "What is the weather today",
+            "What is the temperature today",
+            "What is the air pressure today");
+
+    feedData.forEach(trie::insert);
   }
 }

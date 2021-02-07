@@ -2,19 +2,24 @@ package com.target.auto.complete.service;
 
 import com.target.auto.complete.domain.PossibleSentences;
 import com.target.auto.complete.domain.Sentences;
+import com.target.auto.complete.service.trie.Trie;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AutoCompleteApplicationServiceTests {
+
+  @Captor ArgumentCaptor<String> searchCaptor;
 
   // ****************************************
   // ************** START-UP ****************
@@ -44,13 +49,28 @@ public class AutoCompleteApplicationServiceTests {
         .extracting("searchedString", "sentencesList")
         .contains(
             "What is the", List.of("What is the temperature", "What is the temperature today"));
+    verify(requestSentence, times(1)).allPossibleSentences(search);
+  }
+
+  @Test
+  @Order(3)
+  @DisplayName("Should captor arguments for all possible search")
+  public void shouldGetAllSentences_Captor(@Mock RequestSentence requestSentence) {
+    // Given
+    String search = "What is the";
+    when(requestSentence.allPossibleSentences(search)).thenReturn(mockMethodResponse(search));
+    // When
+    PossibleSentences sentences = requestSentence.allPossibleSentences(search);
+    // Then
+    verify(requestSentence).allPossibleSentences(searchCaptor.capture());
+    assertThat(searchCaptor.getValue()).isEqualTo(search);
   }
 
   // ****************************************
   // ***************  SAVE  *****************
   // ****************************************
   @Test
-  @Order(2)
+  @Order(4)
   @DisplayName("Should Insert the given list into data structure")
   public void shouldInsert(@Mock RequestSentence requestSentence) {
     // Given
@@ -59,6 +79,7 @@ public class AutoCompleteApplicationServiceTests {
     Sentences sentences = requestSentence.insertWord(mockMethodRequest());
     // Then
     assertThat(sentences).isNotNull().isEqualTo(mockMethodRequest());
+    verify(requestSentence, times(1)).insertWord(mockMethodRequest());
   }
 
   // ****************************************

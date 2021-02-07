@@ -33,6 +33,9 @@ class AutoCompleteApplicationTests {
     this.mockMvc = mockMvc;
   }
 
+  // ****************************************
+  // ************** START-UP ****************
+  // ****************************************
   @Test
   @Order(1)
   @DisplayName("Should start the application")
@@ -40,6 +43,9 @@ class AutoCompleteApplicationTests {
     assertThat(mockMvc).isNotNull();
   }
 
+  // ****************************************
+  // ***************  GET  ******************
+  // ****************************************
   @Test
   @Order(2)
   @DisplayName("Should get all the possible sentences for a incomplete sentence")
@@ -69,14 +75,16 @@ class AutoCompleteApplicationTests {
     // When & Then
     MvcResult mvcResult1 =
         mockMvc
-            .perform(get("/v1/complete/sentences/" + searchSentence1).accept(MediaType.APPLICATION_JSON))
+            .perform(
+                get("/v1/complete/sentences/" + searchSentence1).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.possibleSentences.*", hasSize(0)))
             .andReturn();
 
     MvcResult mvcResult2 =
         mockMvc
-            .perform(get("/v1/complete/sentences/" + searchSentence2).accept(MediaType.APPLICATION_JSON))
+            .perform(
+                get("/v1/complete/sentences/" + searchSentence2).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.stringSearched", is("Fubu")))
             .andExpect(jsonPath("$.possibleSentences[0]", is("Fubu shoes ")))
@@ -84,6 +92,9 @@ class AutoCompleteApplicationTests {
             .andReturn();
   }
 
+  // ****************************************
+  // ***************  POST  *****************
+  // ****************************************
   @Test
   @Order(4)
   @DisplayName("Should insert all the sentences")

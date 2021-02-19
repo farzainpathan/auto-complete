@@ -9,6 +9,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,8 +47,7 @@ public class AutoCompleteApplicationServiceTests {
     assertThat(sentences)
         .isNotNull()
         .extracting("searchedString", "sentencesList")
-        .contains(
-            "What is the", List.of("What is the temperature", "What is the temperature today"));
+        .contains("What is the", Collections.emptyMap());
     verify(requestSentence, times(1)).allPossibleSentences(search);
   }
 
@@ -87,7 +87,7 @@ public class AutoCompleteApplicationServiceTests {
   private PossibleSentences mockMethodResponse(String search) {
     return PossibleSentences.builder()
         .searchedString(search)
-        .sentencesList(List.of("What is the temperature", "What is the temperature today"))
+        .sentencesList(Collections.emptyMap())
         .build();
   }
 
